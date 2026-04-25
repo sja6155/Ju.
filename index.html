@@ -13,6 +13,10 @@
   --font-sans:'Apple SD Gothic Neo','Malgun Gothic','맑은 고딕','NanumGothic','나눔고딕',sans-serif;
   --font-serif:'ApMyungjo','Apple Myungjo','Batang','바탕','NanumMyeongjo','나눔명조',serif;
 }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-sans);min-height:100vh;
+display:flex;flex-direction:column;align-items:center;transition:background .3s,color .3s;
+background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(139,115,85,.07) 31px,rgba(139,115,85,.07) 32px);}
 body.dark{
   --ink:#e8dcc8;--paper:#1a1612;--red:#e05c4a;--gold:#d4a017;
   --gold-light:rgba(212,160,23,0.15);--faded:#9e8b6e;--card-bg:#252018;
@@ -27,11 +31,7 @@ body.dark .mc-btn:hover:not(:disabled){background:rgba(212,160,23,.15);}
 body.dark .exam-opt-row select,body.dark .exam-opt-row input[type=number]{background:#1e1b16;color:var(--ink);border-color:rgba(212,160,23,.3);}
 body.dark .list-item{border-color:rgba(212,160,23,.12);}
 body.dark .stats-card{background:#1e1b16;border-color:rgba(212,160,23,.2);}
-
-*{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(–paper);color:var(–ink);font-family:var(–font-sans);min-height:100vh;
-display:flex;flex-direction:column;align-items:center;transition:background .3s,color .3s;
-background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(139,115,85,.07) 31px,rgba(139,115,85,.07) 32px);}
+body.dark .card-face.back{background:#1e1b16;}
 
 /* HEADER */
 header{width:100%;padding:14px 20px 10px;text-align:center;border-bottom:2px solid var(–gold);
@@ -80,7 +80,6 @@ font-size:.68rem;font-family:var(–font-sans);cursor:pointer;transition:all .2s
 background:var(–card-bg);box-shadow:0 6px 28px var(–shadow),inset 0 0 0 1.5px rgba(184,134,11,.22);
 display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px 20px;transition:background .3s;}
 .card-face.back{transform:rotateY(180deg);background:var(–card-bg);}
-body.dark .card-face.back{background:#1e1b16;}
 .card-category{font-size:.6rem;color:var(–faded);letter-spacing:.15em;margin-bottom:8px;}
 .card-hanja{font-family:var(–font-serif);font-size:4.5rem;font-weight:400;color:var(–ink);line-height:1;margin-bottom:6px;}
 .card-hint{font-size:.64rem;color:var(–faded);margin-top:12px;}
