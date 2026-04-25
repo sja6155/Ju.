@@ -23,20 +23,24 @@ body.dark .quiz-input{background:#1e1b16;color:var(--ink);border-color:rgba(212,
 body.dark .mc-btn{background:#1e1b16;color:var(--ink);border-color:rgba(212,160,23,.2);}
 body.dark .mc-btn:hover:not(:disabled){background:rgba(212,160,23,.15);}
 body.dark .exam-opt-row select,body.dark .exam-opt-row input[type=number]{background:#1e1b16;color:var(--ink);border-color:rgba(212,160,23,.3);}
-body.dark .result-wrong-list{border-color:rgba(212,160,23,.2);}
-body.dark .list-item{background:var(--card-bg);border-color:rgba(212,160,23,.12);}
+body.dark .list-item{border-color:rgba(212,160,23,.12);}
+body.dark .stats-card{background:#1e1b16;border-color:rgba(212,160,23,.2);}
+
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--paper);font-family:var(--font-sans);min-height:100vh;
-  display:flex;flex-direction:column;align-items:center;
-  background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(139,115,85,.07) 31px,rgba(139,115,85,.07) 32px);}
+body{background:var(–paper);font-family:var(–font-sans);min-height:100vh;
+display:flex;flex-direction:column;align-items:center;transition:background .3s,color .3s;
+background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(139,115,85,.07) 31px,rgba(139,115,85,.07) 32px);}
 
 /* HEADER */
-header{width:100%;padding:16px 20px 10px;text-align:center;border-bottom:2px solid var(–gold);
-background:var(–card-bg);box-shadow:0 2px 12px var(–shadow);position:sticky;top:0;z-index:200;}
+header{width:100%;padding:14px 20px 10px;text-align:center;border-bottom:2px solid var(–gold);
+background:var(–card-bg);box-shadow:0 2px 12px var(–shadow);position:sticky;top:0;z-index:200;transition:background .3s;}
+.header-inner{position:relative;display:inline-block;}
 header h1{font-family:var(–font-serif);font-size:1.45rem;font-weight:900;color:var(–ink);letter-spacing:.1em;}
 header p{font-size:.7rem;color:var(–faded);margin-top:2px;}
+#theme-btn{position:absolute;top:50%;right:-40px;transform:translateY(-50%);
+background:none;border:none;font-size:1.2rem;cursor:pointer;padding:4px;border-radius:50%;line-height:1;}
 
-/* CATEGORY TABS */
+/* TABS */
 .tabs{display:flex;gap:6px;padding:10px 12px 0;max-width:720px;width:100%;margin:0 auto;flex-wrap:wrap;justify-content:center;}
 .tab{padding:4px 12px;border-radius:20px;border:1.5px solid var(–gold);background:transparent;
 color:var(–gold);font-size:.7rem;font-family:var(–font-sans);cursor:pointer;transition:all .2s;white-space:nowrap;}
@@ -53,8 +57,8 @@ color:var(–gold);font-size:.7rem;font-family:var(–font-sans);cursor:pointer;
 background:transparent;color:var(–red);font-size:.7rem;font-family:var(–font-sans);cursor:pointer;transition:all .2s;}
 .shuffle-btn:hover{background:var(–red);color:#fff;}
 .mode-toggle{display:flex;background:rgba(139,115,85,.12);border-radius:20px;padding:3px;}
-.mode-btn{padding:5px 10px;border-radius:17px;border:none;background:transparent;color:var(–faded);
-font-size:.7rem;font-family:var(–font-sans);cursor:pointer;transition:all .2s;white-space:nowrap;}
+.mode-btn{padding:5px 9px;border-radius:17px;border:none;background:transparent;color:var(–faded);
+font-size:.68rem;font-family:var(–font-sans);cursor:pointer;transition:all .2s;white-space:nowrap;}
 .mode-btn.active{background:var(–gold);color:#fff;}
 
 /* PANELS */
@@ -72,11 +76,11 @@ font-size:.7rem;font-family:var(–font-sans);cursor:pointer;transition:all .2s;
 .card.flipped{transform:rotateY(180deg);}
 .card-face{position:absolute;width:100%;min-height:240px;backface-visibility:hidden;border-radius:16px;
 background:var(–card-bg);box-shadow:0 6px 28px var(–shadow),inset 0 0 0 1.5px rgba(184,134,11,.22);
-display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px 20px;}
+display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px 20px;transition:background .3s;}
 .card-face.back{transform:rotateY(180deg);background:#fff8ec;}
+body.dark .card-face.back{background:#1e1b16;}
 .card-category{font-size:.6rem;color:var(–faded);letter-spacing:.15em;margin-bottom:8px;}
-.card-hanja{font-family:var(–font-serif);font-size:4.5rem;font-weight:400;color:var(–ink);line-height:1;
-margin-bottom:6px;text-shadow:2px 2px 0 rgba(184,134,11,.1);}
+.card-hanja{font-family:var(–font-serif);font-size:4.5rem;font-weight:400;color:var(–ink);line-height:1;margin-bottom:6px;}
 .card-hint{font-size:.64rem;color:var(–faded);margin-top:12px;}
 .card-reading{font-size:1.4rem;color:var(–red);font-weight:700;margin-bottom:5px;letter-spacing:.08em;}
 .card-meaning{font-size:.95rem;color:var(–ink);font-weight:500;}
@@ -97,37 +101,29 @@ background:transparent;color:var(–green);font-size:.76rem;font-family:var(–f
 .qtype-btn{padding:5px 12px;border-radius:20px;border:1.5px solid var(–blue);background:transparent;
 color:var(–blue);font-size:.7rem;font-family:var(–font-sans);cursor:pointer;transition:all .2s;}
 .qtype-btn.active,.qtype-btn:hover{background:var(–blue);color:#fff;}
-
 .quiz-card{width:100%;border-radius:16px;background:var(–card-bg);
 box-shadow:0 6px 28px var(–shadow),inset 0 0 0 1.5px rgba(184,134,11,.18);
-padding:22px 16px;display:flex;flex-direction:column;align-items:center;}
+padding:22px 16px;display:flex;flex-direction:column;align-items:center;transition:background .3s;}
 .quiz-prompt-label{font-size:.6rem;color:var(–faded);letter-spacing:.1em;margin-bottom:6px;text-align:center;}
-.quiz-prompt-hanja{font-family:var(–font-serif);font-size:3.8rem;font-weight:400;color:var(–ink);
-text-shadow:2px 2px 0 rgba(184,134,11,.1);line-height:1;margin-bottom:4px;}
+.quiz-prompt-hanja{font-family:var(–font-serif);font-size:3.8rem;font-weight:400;color:var(–ink);line-height:1;margin-bottom:4px;}
 .quiz-prompt-text{font-size:1.1rem;color:var(–ink);font-weight:600;margin:2px 0;text-align:center;}
-
-/* text input quiz */
 .quiz-input-row{display:flex;gap:7px;width:100%;margin-top:10px;}
 .quiz-input{flex:1;padding:9px 13px;border-radius:10px;border:1.5px solid rgba(184,134,11,.3);
-background:#fff;font-size:.95rem;font-family:var(–font-sans);color:var(–ink);outline:none;}
+background:#fff;font-size:.95rem;font-family:var(–font-sans);color:var(–ink);outline:none;transition:background .3s,color .3s;}
 .quiz-input:focus{border-color:var(–gold);box-shadow:0 0 0 3px rgba(184,134,11,.1);}
 .quiz-submit{padding:9px 15px;border-radius:10px;border:none;background:var(–gold);color:#fff;
 font-size:.82rem;font-family:var(–font-sans);cursor:pointer;transition:all .2s;white-space:nowrap;}
 .quiz-submit:hover{background:#9a6e09;}
-
-/* multiple choice */
 .mc-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-top:12px;}
-.mc-btn{padding:12px 10px;border-radius:12px;border:1.5px solid rgba(184,134,11,.28);
+.mc-btn{padding:12px 10px;border-radius:12px;border:1.5px solid rgba(184,134,11,.25);
 background:#fff;color:var(–ink);font-size:.88rem;font-family:var(–font-sans);
 cursor:pointer;transition:all .18s;text-align:center;line-height:1.3;}
 .mc-btn:hover:not(:disabled){border-color:var(–gold);background:var(–gold-light);}
 .mc-btn.correct-ans{background:rgba(39,174,96,.15)!important;border-color:var(–green)!important;color:var(–green)!important;font-weight:700;}
 .mc-btn.wrong-ans{background:rgba(192,57,43,.1)!important;border-color:var(–red)!important;color:var(–red)!important;}
 .mc-btn:disabled{cursor:default;}
-
-/* canvas */
 .canvas-wrap{position:relative;margin-top:10px;border:2px solid rgba(184,134,11,.35);border-radius:12px;
-background:#fff;overflow:hidden;touch-action:none;cursor:crosshair;width:100%;max-width:260px;}
+background:#fff;overflow:hidden;touch-action:none;cursor:crosshair;width:100%;max-width:260px;transition:background .3s;}
 .canvas-wrap canvas{display:block;width:100%;height:auto;}
 .canvas-guide{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center;
 font-family:var(–font-serif);font-size:5rem;font-weight:400;user-select:none;transition:color .4s;}
@@ -137,48 +133,45 @@ color:var(–faded);font-size:.72rem;font-family:var(–font-sans);cursor:pointe
 .canvas-btn:hover{background:var(–faded);color:#fff;}
 .canvas-btn.primary{border-color:var(–gold);color:var(–gold);}
 .canvas-btn.primary:hover{background:var(–gold);color:#fff;}
-
-/* feedback */
 .quiz-feedback{margin-top:10px;width:100%;padding:10px 14px;border-radius:11px;
 font-size:.86rem;font-weight:600;text-align:center;display:none;line-height:1.5;}
 .quiz-feedback.correct{background:rgba(39,174,96,.1);color:var(–green);border:1.5px solid rgba(39,174,96,.25);}
 .quiz-feedback.wrong{background:rgba(192,57,43,.08);color:var(–red);border:1.5px solid rgba(192,57,43,.2);}
 .quiz-feedback.neutral{background:var(–gold-light);color:var(–gold);border:1.5px solid rgba(184,134,11,.28);}
-
 .quiz-nav-row{display:flex;align-items:center;margin-top:10px;width:100%;}
 .quiz-score{font-size:.73rem;color:var(–faded);}
 .hint-reveal{margin-top:8px;font-size:.74rem;color:var(–faded);cursor:pointer;text-decoration:underline dotted;}
 .hint-text{display:none;margin-top:4px;font-size:.8rem;color:var(–gold);font-weight:600;}
 
-/* exam mode */
+/* EXAM */
 .exam-setup{width:100%;background:var(–card-bg);border-radius:16px;
-box-shadow:0 6px 28px var(–shadow),inset 0 0 0 1.5px rgba(184,134,11,.2);padding:24px 18px;}
+box-shadow:0 6px 28px var(–shadow),inset 0 0 0 1.5px rgba(184,134,11,.2);padding:24px 18px;transition:background .3s;}
 .exam-setup h3{font-family:var(–font-serif);font-size:1.1rem;color:var(–ink);margin-bottom:16px;text-align:center;}
 .exam-opt-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;font-size:.84rem;color:var(–ink);}
-.exam-opt-row select,.exam-opt-row input[type=number]{
-padding:5px 10px;border-radius:8px;border:1.5px solid rgba(184,134,11,.3);
-background:#fff;font-size:.82rem;font-family:var(–font-sans);color:var(–ink);outline:none;}
+.exam-opt-row select,.exam-opt-row input[type=number]{padding:5px 10px;border-radius:8px;border:1.5px solid rgba(184,134,11,.3);
+background:#fff;font-size:.82rem;font-family:var(–font-sans);color:var(–ink);outline:none;transition:background .3s,color .3s;}
 .exam-start-btn{width:100%;margin-top:10px;padding:11px;border-radius:12px;border:none;
 background:var(–purple);color:#fff;font-size:.9rem;font-family:var(–font-sans);cursor:pointer;transition:all .2s;}
-.exam-start-btn:hover{background:#6c3483;}
+.exam-start-btn:hover{opacity:.85;}
 .exam-timer{font-size:1.5rem;font-weight:900;color:var(–purple);text-align:center;margin-bottom:10px;letter-spacing:.05em;}
 .exam-timer.warning{color:var(–red);}
 
-/* result */
+/* RESULT */
 .result-screen{width:100%;text-align:center;padding:26px 18px;background:var(–card-bg);
-border-radius:16px;box-shadow:0 6px 28px var(–shadow);}
+border-radius:16px;box-shadow:0 6px 28px var(–shadow);transition:background .3s;}
 .result-screen h2{font-family:var(–font-serif);font-size:1.3rem;color:var(–ink);margin-bottom:8px;}
 .result-big{font-size:2.8rem;font-weight:900;color:var(–gold);line-height:1;}
 .result-sub{font-size:.82rem;color:var(–faded);margin-top:6px;}
-.result-wrong-list{text-align:left;margin-top:14px;max-height:220px;overflow-y:auto;
+.result-wrong-list{text-align:left;margin-top:14px;max-height:200px;overflow-y:auto;
 border:1px solid rgba(184,134,11,.2);border-radius:10px;padding:8px;}
-.result-wrong-item{display:flex;align-items:center;gap:10px;padding:6px 4px;border-bottom:1px solid rgba(139,115,85,.1);font-size:.8rem;}
+.result-wrong-item{display:flex;align-items:center;gap:10px;padding:6px 4px;
+border-bottom:1px solid rgba(139,115,85,.1);font-size:.8rem;}
 .result-wrong-item:last-child{border-bottom:none;}
-.rwi-h{font-family:var(–font-serif);font-size:1.4rem;font-weight:700;color:var(–ink);min-width:30px;}
+.rwi-h{font-family:var(–font-serif);font-size:1.4rem;font-weight:400;color:var(–ink);min-width:30px;}
 .rwi-info{flex:1;color:var(–faded);}
-.result-btn{margin-top:14px;margin-right:5px;padding:8px 20px;border-radius:20px;
+.result-btn{margin-top:14px;margin-right:5px;padding:8px 18px;border-radius:20px;
 border:2px solid var(–gold);background:var(–gold);color:#fff;
-font-size:.82rem;font-family:var(–font-sans);cursor:pointer;transition:all .2s;}
+font-size:.8rem;font-family:var(–font-sans);cursor:pointer;transition:all .2s;}
 .result-btn.outline{background:transparent;color:var(–gold);}
 .result-btn.wrong-btn{border-color:var(–red);background:var(–red);}
 .result-btn:hover{opacity:.85;}
@@ -191,19 +184,36 @@ margin-bottom:6px;padding-bottom:3px;border-bottom:1px solid rgba(184,134,11,.2)
 border-radius:10px;margin-bottom:4px;box-shadow:0 2px 6px rgba(26,10,0,.05);
 border:1px solid rgba(184,134,11,.13);transition:all .15s;}
 .list-item:hover{transform:translateX(3px);border-color:var(–gold);}
-.list-hanja{font-family:var(–font-serif);font-size:1.8rem;font-weight:700;color:var(–ink);min-width:38px;text-align:center;}
+.list-hanja{font-family:var(–font-serif);font-size:1.8rem;font-weight:400;color:var(–ink);min-width:38px;text-align:center;}
 .list-info{flex:1;cursor:pointer;}
 .list-reading{font-size:.85rem;color:var(–red);font-weight:600;}
 .list-meaning{font-size:.74rem;color:var(–faded);margin-top:1px;}
 .list-pair-tag{font-size:.62rem;background:var(–gold-light);color:var(–gold);padding:2px 7px;border-radius:10px;}
-.star-btn{background:none;border:none;font-size:1.2rem;cursor:pointer;padding:2px 4px;
-line-height:1;transition:transform .15s;color:#ccc;}
-.star-btn.starred{color:#f39c12;}
+.star-btn{background:none;border:none;font-size:1.2rem;cursor:pointer;padding:2px 4px;line-height:1;transition:transform .15s;}
 .star-btn:hover{transform:scale(1.3);}
 .wrong-badge{font-size:.6rem;background:rgba(192,57,43,.12);color:var(–red);
-padding:2px 7px;border-radius:10px;border:1px solid rgba(192,57,43,.2);}
+padding:2px 6px;border-radius:10px;border:1px solid rgba(192,57,43,.2);margin-left:4px;}
 
-/* empty state */
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin-bottom:16px;}
+.stats-card{background:var(–card-bg);border-radius:12px;padding:14px 12px;text-align:center;
+border:1px solid rgba(184,134,11,.2);box-shadow:0 2px 8px var(–shadow);transition:background .3s;}
+.stats-num{font-size:1.8rem;font-weight:900;color:var(–gold);line-height:1;}
+.stats-label{font-size:.68rem;color:var(–faded);margin-top:4px;}
+.stats-history{width:100%;background:var(–card-bg);border-radius:12px;padding:14px;
+border:1px solid rgba(184,134,11,.2);transition:background .3s;}
+.stats-history h4{font-family:var(–font-serif);font-size:.9rem;color:var(–ink);margin-bottom:10px;}
+.history-item{display:flex;align-items:center;gap:10px;padding:7px 0;
+border-bottom:1px solid rgba(139,115,85,.1);font-size:.78rem;}
+.history-item:last-child{border-bottom:none;}
+.history-score{font-weight:700;color:var(–gold);min-width:48px;}
+.history-meta{flex:1;color:var(–faded);}
+.history-grade{font-weight:700;font-size:.85rem;}
+.clear-btn{margin-top:12px;padding:7px 16px;border-radius:20px;border:1.5px solid var(–red);
+background:transparent;color:var(–red);font-size:.72rem;font-family:var(–font-sans);cursor:pointer;transition:all .2s;}
+.clear-btn:hover{background:var(–red);color:#fff;}
+
+/* EMPTY */
 .empty-state{text-align:center;padding:40px 20px;color:var(–faded);font-size:.85rem;}
 .empty-state .big{font-size:2.5rem;margin-bottom:10px;}
 </style>
@@ -212,12 +222,9 @@ padding:2px 7px;border-radius:10px;border:1px solid rgba(192,57,43,.2);}
 <body>
 
 <header>
-  <div style="position:relative;display:inline-block;">
+  <div class="header-inner">
     <h1>漢字 암기장</h1>
-    <button id="theme-btn" onclick="toggleTheme()" title="다크/라이트 모드 전환"
-      style="position:absolute;top:50%;right:-44px;transform:translateY(-50%);
-        background:none;border:none;font-size:1.3rem;cursor:pointer;padding:4px;
-        border-radius:50%;transition:transform .2s;line-height:1;">🌙</button>
+    <button id="theme-btn" onclick="toggleTheme()" title="다크/라이트 모드">🌙</button>
   </div>
   <p>한문의 기초 · 병렬관계 · 반의관계 · 속담</p>
 </header>
@@ -226,10 +233,11 @@ padding:2px 7px;border-radius:10px;border:1px solid rgba(192,57,43,.2);}
 
 <div class="controls">
   <div class="mode-toggle">
-    <button class="mode-btn active"  onclick="setMode('flash')">플래시카드</button>
+    <button class="mode-btn active" onclick="setMode('flash')">플래시카드</button>
     <button class="mode-btn" onclick="setMode('quiz')">퀴즈</button>
     <button class="mode-btn" onclick="setMode('exam')">시험</button>
     <button class="mode-btn" onclick="setMode('list')">목록</button>
+    <button class="mode-btn" onclick="setMode('stats')">기록</button>
   </div>
   <button class="shuffle-btn" onclick="shuffle()">🔀 섞기</button>
   <span class="count-badge" id="count-badge"></span>
@@ -289,8 +297,16 @@ padding:2px 7px;border-radius:10px;border:1px solid rgba(192,57,43,.2);}
   <div id="list-content"></div>
 </div>
 
+<!-- STATS -->
+
+<div id="stats-mode" class="flex-panel">
+  <div id="stats-body" style="width:100%;"></div>
+</div>
+
 <script>
-/* ═══════ DATA ═══════ */
+/* ═══════════════════════════════════════
+   DATA
+═══════════════════════════════════════ */
 const ALL_WORDS = {
   "기초 한자":[
     {h:"花",r:"화",m:"꽃"},{h:"開",r:"개",m:"열다"},{h:"讀",r:"독",m:"읽다"},
@@ -370,19 +386,42 @@ const ALL_WORDS = {
   ],
 };
 
-/* ═══════ STATE ═══════ */
+/* ═══════════════════════════════════════
+   LOCALSTORAGE PERSISTENCE
+═══════════════════════════════════════ */
+const STORE = {
+  save(key, val){
+    try{ localStorage.setItem('hanja_'+key, JSON.stringify(val)); }catch(e){}
+  },
+  load(key, def){
+    try{
+      const v=localStorage.getItem('hanja_'+key);
+      return v!=null ? JSON.parse(v) : def;
+    }catch(e){ return def; }
+  },
+  remove(key){ try{ localStorage.removeItem('hanja_'+key); }catch(e){} }
+};
+
+/* ═══════════════════════════════════════
+   STATE  (loaded from storage on boot)
+═══════════════════════════════════════ */
 let currentCategory = "기초 한자";
 let currentWords = [];
 let viewMode = 'flash';
-let favorites = new Set();   // keys: h+r
-let wrongWords = new Set();  // keys: h+r (accumulated across all quizzes)
+
+// persistent
+let favorites  = new Set(STORE.load('favorites', []));
+let wrongWords = new Set(STORE.load('wrongWords', []));
+let knownWords = new Set(STORE.load('knownWords', []));  // globally known (✓ 외웠어요)
+let quizHistory = STORE.load('quizHistory', []);         // [{date,type,score,total,cat}]
+let isDark = STORE.load('darkMode', false);
 
 // flashcard
 let fcIndex=0, fcFlipped=false, fcKnownSet=new Set();
 
 // quiz
 let qType='read', qWords=[], qIndex=0, qCorrect=0, qAnswered=false, qDone=false;
-let qSessionWrong=[];  // wrong words in current quiz session
+let qSessionWrong=[];
 
 // exam
 let examWords=[], examIndex=0, examCorrect=0, examAnswered=false, examDone=false;
@@ -392,28 +431,51 @@ let examSessionWrong=[];
 // drawing
 let drawCanvas,drawCtx,isDrawing=false,lastX=0,lastY=0;
 
-/* ═══════ HELPERS ═══════ */
+/* ═══════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════ */
 function wordKey(w){ return w.h+w.r; }
-
 function dedupe(arr){
   const seen=new Set();
   return arr.filter(w=>{ const k=wordKey(w); if(seen.has(k)) return false; seen.add(k); return true; });
 }
-
 function allWords(){
   return dedupe(Object.entries(ALL_WORDS).flatMap(([cat,ws])=>ws.map(w=>({...w,cat}))));
 }
+function getFavWords(){ return allWords().filter(w=>favorites.has(wordKey(w))); }
+function getWrongWordsList(){ return allWords().filter(w=>wrongWords.has(wordKey(w))); }
+function fmtTime(s){ return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`; }
+function fmtDate(ts){ const d=new Date(ts); return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; }
 
-function getFavWords(){
-  return allWords().filter(w=>favorites.has(wordKey(w)));
+function saveFavorites(){ STORE.save('favorites', [...favorites]); }
+function saveWrong(){ STORE.save('wrongWords', [...wrongWords]); }
+function saveKnown(){ STORE.save('knownWords', [...knownWords]); }
+function saveHistory(){ STORE.save('quizHistory', quizHistory); }
+
+function addHistory(type, correct, total, cat){
+  quizHistory.unshift({ date: Date.now(), type, score: correct, total, cat });
+  if(quizHistory.length > 50) quizHistory = quizHistory.slice(0,50);
+  saveHistory();
 }
 
-function getWrongWordsList(){
-  return allWords().filter(w=>wrongWords.has(wordKey(w)));
+/* ═══════════════════════════════════════
+   THEME
+═══════════════════════════════════════ */
+function applyTheme(){
+  document.body.classList.toggle('dark', isDark);
+  document.getElementById('theme-btn').textContent = isDark ? '☀️' : '🌙';
+}
+function toggleTheme(){
+  isDark = !isDark;
+  STORE.save('darkMode', isDark);
+  applyTheme();
 }
 
-/* ═══════ INIT ═══════ */
+/* ═══════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
 function init(){
+  applyTheme();
   buildTabs();
   loadWords();
 }
@@ -425,16 +487,7 @@ function buildTabs(){
     const b=document.createElement('button');
     b.className='tab'+cls+(currentCategory===cat?' active':'');
     b.textContent=label;
-    b.onclick=()=>{ currentCategory=cat; fcIndex=0; fcKnownSet.clear(); /* ═══════ THEME ═══════ */
-function toggleTheme(){
-  const isDark=document.body.classList.toggle('dark');
-  document.getElementById('theme-btn').textContent=isDark?'☀️':'🌙';
-  // fix canvas background on theme switch
-  const c=document.getElementById('draw-canvas');
-  if(c){ const ctx=c.getContext('2d'); /* keep strokes, just bg changes via CSS */ }
-}
-
-init(); };
+    b.onclick=()=>{ currentCategory=cat; fcIndex=0; fcKnownSet.clear(); loadWords(); buildTabs(); };
     el.appendChild(b);
   };
   mk('전체','__all__');
@@ -444,26 +497,26 @@ init(); };
 }
 
 function loadWords(){
-  if(currentCategory==='__all__'){
-    currentWords=allWords();
-  } else if(currentCategory==='__fav__'){
-    currentWords=getFavWords();
-  } else if(currentCategory==='__wrong__'){
-    currentWords=getWrongWordsList();
-  } else {
-    currentWords=dedupe((ALL_WORDS[currentCategory]||[]).map(w=>({...w,cat:currentCategory})));
-  }
+  if(currentCategory==='__all__') currentWords=allWords();
+  else if(currentCategory==='__fav__') currentWords=getFavWords();
+  else if(currentCategory==='__wrong__') currentWords=getWrongWordsList();
+  else currentWords=dedupe((ALL_WORDS[currentCategory]||[]).map(w=>({...w,cat:currentCategory})));
+
   document.getElementById('count-badge').textContent=`총 ${currentWords.length}개`;
-  fcRender();
-  renderList();
+
+  // restore known state for flashcard
+  fcKnownSet = new Set([...knownWords].filter(k=>currentWords.some(w=>wordKey(w)===k)));
+
+  fcRender(); renderList();
   qWords=[...currentWords]; qIndex=0; qCorrect=0; qAnswered=false; qDone=false; qSessionWrong=[];
   if(viewMode==='quiz') renderQuiz();
   if(viewMode==='exam') renderExamSetup();
+  if(viewMode==='stats') renderStats();
 }
 
 function shuffle(){
   currentWords=[...currentWords].sort(()=>Math.random()-.5);
-  fcIndex=0; fcKnownSet.clear();
+  fcIndex=0;
   qWords=[...currentWords]; qIndex=0; qCorrect=0; qAnswered=false; qDone=false; qSessionWrong=[];
   fcRender(); renderList();
   if(viewMode==='quiz') renderQuiz();
@@ -471,25 +524,25 @@ function shuffle(){
 
 function setMode(m){
   viewMode=m;
-  ['flashcard','quiz','exam','list'].forEach(id=>{
-    const el=document.getElementById(id+'-mode');
-    el.classList.remove('active');
-  });
-  document.getElementById(
-    m==='flash'?'flashcard-mode':m==='list'?'list-mode':m+'-mode'
-  ).classList.add('active');
+  const ids=['flashcard','quiz','exam','list','stats'];
+  ids.forEach(id=>document.getElementById(id+'-mode').classList.remove('active'));
+  document.getElementById(m==='flash'?'flashcard-mode':m+'-mode').classList.add('active');
   document.querySelectorAll('.mode-btn').forEach((b,i)=>{
-    b.classList.toggle('active',['flash','quiz','exam','list'][i]===m);
+    b.classList.toggle('active',['flash','quiz','exam','list','stats'][i]===m);
   });
   if(m==='quiz'){ qWords=[...currentWords]; qIndex=0; qCorrect=0; qAnswered=false; qDone=false; qSessionWrong=[]; renderQuiz(); }
-  if(m==='exam'){ renderExamSetup(); }
+  if(m==='exam') renderExamSetup();
+  if(m==='stats') renderStats();
 }
 
-/* ═══════ FLASHCARD ═══════ */
+/* ═══════════════════════════════════════
+   FLASHCARD
+═══════════════════════════════════════ */
 function fcRender(){
   if(!currentWords.length){
     document.getElementById('fc-hanja').textContent='—';
     document.getElementById('fc-num').textContent='0 / 0';
+    document.getElementById('known-count').textContent='';
     return;
   }
   const w=currentWords[fcIndex];
@@ -509,9 +562,18 @@ function fcRender(){
 function flipCard(){ fcFlipped=!fcFlipped; document.getElementById('card').classList.toggle('flipped'); document.getElementById('flip-hint').textContent=fcFlipped?'탭하여 앞면으로':''; }
 function fcNext(){ fcIndex=(fcIndex+1)%currentWords.length; fcRender(); }
 function fcPrev(){ fcIndex=(fcIndex-1+currentWords.length)%currentWords.length; fcRender(); }
-function fcKnown(){ fcKnownSet.add(fcIndex); document.getElementById('known-count').textContent=`외운 단어: ${fcKnownSet.size} / ${currentWords.length}`; fcNext(); }
+function fcKnown(){
+  const k=wordKey(currentWords[fcIndex]);
+  fcKnownSet.add(fcIndex);
+  knownWords.add(k);
+  saveKnown();
+  document.getElementById('known-count').textContent=`외운 단어: ${fcKnownSet.size} / ${currentWords.length}`;
+  fcNext();
+}
 
-/* ═══════ QUIZ ═══════ */
+/* ═══════════════════════════════════════
+   QUIZ
+═══════════════════════════════════════ */
 function setQuizType(t){
   qType=t;
   document.querySelectorAll('.qtype-btn').forEach((b,i)=>{
@@ -523,24 +585,23 @@ function setQuizType(t){
 
 function renderQuiz(){
   const el=document.getElementById('quiz-body');
-  if(!qWords.length){ el.innerHTML='<div class="empty-state"><div class="big">📭</div>단어가 없습니다.<br>단원을 선택하거나 즐겨찾기를 추가해보세요.</div>'; return; }
+  if(!qWords.length){ el.innerHTML='<div class="empty-state"><div class="big">📭</div>단어가 없습니다.</div>'; return; }
   if(qDone){ renderQuizResult(el); return; }
   const w=qWords[qIndex];
-
-  let label='', mainHTML='', inputHTML='';
+  let label='',mainHTML='',inputHTML='';
 
   if(qType==='read'){
     label='이 한자의 음(소리)을 입력하세요';
     mainHTML=`<div class="quiz-prompt-hanja">${w.h}</div>`;
-    inputHTML=textInputHTML('음 입력 (예: 화)');
+    inputHTML=textInputHTML('음 입력 (예: 화)','quizCheck()');
   } else if(qType==='meaning'){
     label='이 한자의 뜻을 입력하세요';
     mainHTML=`<div class="quiz-prompt-hanja">${w.h}</div>`;
-    inputHTML=textInputHTML('뜻 입력 (예: 꽃)');
+    inputHTML=textInputHTML('뜻 입력 (예: 꽃)','quizCheck()');
   } else if(qType==='mc'){
     label='알맞은 뜻을 고르세요';
-    mainHTML=`<div class="quiz-prompt-hanja">${w.h}</div><div style="font-size:.78rem;color:var(--faded);margin-top:2px">음: ${w.r}</div>`;
-    inputHTML=mcOptionsHTML(w);
+    mainHTML=`<div class="quiz-prompt-hanja">${w.h}</div><div style="font-size:.76rem;color:var(--faded);margin-top:2px">음: ${w.r}</div>`;
+    inputHTML=mcOptionsHTML(w,'mcSelect','quizMcCorrect');
   } else if(qType==='draw'){
     label='음과 뜻을 보고 한자를 직접 써보세요';
     mainHTML=`<div class="quiz-prompt-text">음: <b style="color:var(--red)">${w.r}</b></div><div class="quiz-prompt-text">뜻: <b>${w.m}</b></div>`;
@@ -548,10 +609,10 @@ function renderQuiz(){
   } else {
     label='음과 뜻을 보고 한자를 입력하세요';
     mainHTML=`<div class="quiz-prompt-text">음: <b style="color:var(--red)">${w.r}</b></div><div class="quiz-prompt-text">뜻: <b>${w.m}</b></div>`;
-    inputHTML=textInputHTML('한자 입력 (예: 花)');
+    inputHTML=textInputHTML('한자 입력 (예: 花)','quizCheck()');
   }
 
-  const hintContent= qType==='read'?'뜻: '+w.m : qType==='meaning'?'음: '+w.r : qType==='draw'?'한자: '+w.h : '한자: '+w.h;
+  const hintTxt= qType==='read'?'뜻: '+w.m : qType==='meaning'?'음: '+w.r : qType==='draw'?'한자: '+w.h : '한자: '+w.h;
 
   el.innerHTML=`
     <div class="quiz-card">
@@ -559,7 +620,7 @@ function renderQuiz(){
       ${mainHTML}
       ${inputHTML}
       <div class="quiz-feedback" id="qfb"></div>
-      ${qType!=='mc'?`<div class="hint-reveal" id="hint-toggle" onclick="toggleHint()">💡 힌트 보기</div><div class="hint-text" id="hint-text">${hintContent}</div>`:''}
+      ${qType!=='mc'?`<div class="hint-reveal" id="hint-toggle" onclick="toggleHint()">💡 힌트 보기</div><div class="hint-text" id="hint-text">${hintTxt}</div>`:''}
     </div>
     <div class="quiz-nav-row">
       <div class="quiz-score">맞은 개수: ${qCorrect} / ${qIndex} &nbsp;|&nbsp; 오답: ${qSessionWrong.length}</div>
@@ -571,101 +632,78 @@ function renderQuiz(){
   else setTimeout(()=>{ const i=document.getElementById('quiz-input'); if(i) i.focus(); },50);
 }
 
-function textInputHTML(ph){
+function textInputHTML(ph, fn){
   return `<div class="quiz-input-row">
     <input class="quiz-input" id="quiz-input" type="text" placeholder="${ph}"
       autocomplete="off" autocorrect="off" spellcheck="false"
-      onkeydown="if(event.key==='Enter')quizCheck()">
-    <button class="quiz-submit" onclick="quizCheck()">확인</button>
+      onkeydown="if(event.key==='Enter')${fn}">
+    <button class="quiz-submit" onclick="${fn}">확인</button>
   </div>`;
 }
 
-function mcOptionsHTML(w){
-  const fullPool=allWords();
-  const correctMeaning=w.m.split('/')[0].trim();
-  const others=fullPool.filter(x=>{
-    if(wordKey(x)===wordKey(w)) return false;
-    return x.m.split('/')[0].trim()!==correctMeaning;
-  });
-  const seenM=new Set([correctMeaning]);
-  const distractors=[];
-  [...others].sort(()=>Math.random()-.5).forEach(x=>{
-    if(distractors.length>=3) return;
-    const xm=x.m.split('/')[0].trim();
-    if(!seenM.has(xm)){seenM.add(xm);distractors.push(x);}
-  });
-  const opts=[w,...distractors].sort(()=>Math.random()-.5);
-  return `<div class="mc-options" id="mc-options">`+
-    opts.map(o=>`<button class="mc-btn" onclick="mcSelect(this,'${wordKey(o)}','${wordKey(w)}')">`+o.m.split('/')[0].trim()+`</button>`).join('')+
+function mcOptionsHTML(w, selectFn, correctFn){
+  const pool=allWords();
+  const cm=w.m.split('/')[0].trim();
+  const others=pool.filter(x=>wordKey(x)!==wordKey(w)&&x.m.split('/')[0].trim()!==cm);
+  const seenM=new Set([cm]); const dist=[];
+  [...others].sort(()=>Math.random()-.5).forEach(x=>{ if(dist.length>=3) return; const xm=x.m.split('/')[0].trim(); if(!seenM.has(xm)){seenM.add(xm);dist.push(x);} });
+  const opts=[w,...dist].sort(()=>Math.random()-.5);
+  const wKey=wordKey(w);
+  return `<div class="mc-options">`+
+    opts.map(o=>`<button class="mc-btn" onclick="${selectFn}(this,'${wordKey(o)}','${wKey}')">${o.m.split('/')[0].trim()}</button>`).join('')+
   `</div>`;
 }
 
 function canvasHTML(hanja){
-  return `
-    <div class="canvas-wrap" id="canvas-wrap">
-      <canvas id="draw-canvas" width="260" height="260"></canvas>
-      <div class="canvas-guide" id="canvas-guide" style="color:transparent">${hanja}</div>
-    </div>
-    <div class="canvas-btns">
-      <button class="canvas-btn" onclick="clearCanvas()">🗑 지우기</button>
-      <button class="canvas-btn primary" onclick="quizDrawReveal()">✓ 정답 확인</button>
-    </div>`;
+  return `<div class="canvas-wrap" id="canvas-wrap">
+    <canvas id="draw-canvas" width="260" height="260"></canvas>
+    <div class="canvas-guide" id="canvas-guide" style="color:transparent">${hanja}</div>
+  </div>
+  <div class="canvas-btns">
+    <button class="canvas-btn" onclick="clearCanvas()">🗑 지우기</button>
+    <button class="canvas-btn primary" onclick="quizDrawReveal()">✓ 정답 확인</button>
+  </div>`;
 }
 
+// called from mc button
 function mcSelect(btn, selectedKey, correctKey){
   if(qAnswered) return;
   qAnswered=true;
   const w=qWords[qIndex];
   const correct=selectedKey===correctKey;
   if(correct) qCorrect++;
-  else { qSessionWrong.push(w); wrongWords.add(wordKey(w)); }
-
+  else { qSessionWrong.push(w); wrongWords.add(wordKey(w)); saveWrong(); }
   document.querySelectorAll('.mc-btn').forEach(b=>{
     b.disabled=true;
-    const bKey=b.getAttribute('onclick').match(/'([^']+)','[^']+'/)[1];
+    const bKey=b.getAttribute('onclick').match(/'([^']+)','[^']+'\)/)[1];
     if(bKey===correctKey) b.classList.add('correct-ans');
-    else if(b===btn && !correct) b.classList.add('wrong-ans');
+    else if(b===btn&&!correct) b.classList.add('wrong-ans');
   });
-
-  const fb=document.getElementById('qfb');
-  fb.style.display='block';
-  if(correct){
-    fb.className='quiz-feedback correct';
-    fb.textContent='⭕ 정답!';
-  } else {
-    fb.className='quiz-feedback wrong';
-    fb.innerHTML=`❌ 오답 &nbsp; 정답 뜻: <b>${w.m}</b>`;
-  }
-  document.querySelector('.quiz-score').textContent=`맞은 개수: ${qCorrect} / ${qIndex+1} | 오답: ${qSessionWrong.length}`;
-  setTimeout(advanceQuiz,1400);
+  const fb=document.getElementById('qfb'); fb.style.display='block';
+  fb.className='quiz-feedback '+(correct?'correct':'wrong');
+  fb.textContent=correct?'⭕ 정답!':'❌ 오답 — 정답: '+w.m;
+  document.querySelector('#quiz-mode .quiz-score').textContent=`맞은 개수: ${qCorrect} / ${qIndex+1} | 오답: ${qSessionWrong.length}`;
+  setTimeout(advanceQuiz,1300);
 }
+function quizMcCorrect(){} // placeholder
 
 function quizCheck(){
   if(qAnswered) return;
   const inp=document.getElementById('quiz-input');
   if(!inp||!inp.value.trim()) return;
   inp.disabled=true;
-  const val=inp.value.trim();
-  const w=qWords[qIndex];
+  const val=inp.value.trim(), w=qWords[qIndex];
   let correct=false;
   if(qType==='read') correct=val===w.r;
   else if(qType==='meaning'){ const ans=w.m.split('/').map(s=>s.trim()); correct=ans.some(a=>val===a||val.replace(/\s/g,'')===a.replace(/\s/g,'')); }
-  else if(qType==='hanja') correct=val===w.h;
-
+  else correct=val===w.h;
   if(correct) qCorrect++;
-  else { qSessionWrong.push(w); wrongWords.add(wordKey(w)); }
+  else { qSessionWrong.push(w); wrongWords.add(wordKey(w)); saveWrong(); }
   qAnswered=true;
-
-  const fb=document.getElementById('qfb');
-  fb.style.display='block';
-  if(correct){
-    fb.className='quiz-feedback correct';
-    fb.innerHTML=`⭕ 정답! &nbsp;<span style="font-family:var(--font-serif)">${w.h}</span> = <b>${w.r}</b> (${w.m})`;
-  } else {
-    fb.className='quiz-feedback wrong';
-    fb.innerHTML=`❌ 오답 &nbsp; 정답: <span style="font-family:var(--font-serif);font-size:1.1rem">${w.h}</span> = <b>${w.r}</b> (${w.m})`;
-  }
-  document.querySelector('.quiz-score').textContent=`맞은 개수: ${qCorrect} / ${qIndex+1} | 오답: ${qSessionWrong.length}`;
+  const fb=document.getElementById('qfb'); fb.style.display='block';
+  if(correct){ fb.className='quiz-feedback correct'; fb.innerHTML=`⭕ 정답! &nbsp;<span style="font-family:var(--font-serif)">${w.h}</span> = <b>${w.r}</b> (${w.m})`; }
+  else { fb.className='quiz-feedback wrong'; fb.innerHTML=`❌ 오답 &nbsp; 정답: <span style="font-family:var(--font-serif);font-size:1.1rem">${w.h}</span> = <b>${w.r}</b> (${w.m})`; }
+  document.querySelector('#quiz-mode .quiz-score').textContent=`맞은 개수: ${qCorrect} / ${qIndex+1} | 오답: ${qSessionWrong.length}`;
   setTimeout(advanceQuiz,1500);
 }
 
@@ -674,24 +712,26 @@ function quizDrawReveal(){
   qAnswered=true;
   const w=qWords[qIndex];
   const g=document.getElementById('canvas-guide');
-  if(g){ g.style.transition='color .4s'; g.style.color='rgba(26,10,0,0.55)'; }
-  const fb=document.getElementById('qfb');
-  fb.style.display='block';
+  if(g){ g.style.color='rgba(26,10,0,0.5)'; }
+  const fb=document.getElementById('qfb'); fb.style.display='block';
   fb.className='quiz-feedback neutral';
-  fb.innerHTML=`정답: <span style="font-family:var(--font-serif);font-size:1.3rem;font-weight:400">${w.h}</span><br>
+  fb.innerHTML=`정답: <span style="font-family:var(--font-serif);font-size:1.3rem;font-weight:700">${w.h}</span><br>
     <small style="font-weight:400">스스로 채점하세요</small><br>
     <button onclick="quizSelfMark(true)" style="margin:5px 3px 0;padding:5px 14px;border-radius:10px;border:1.5px solid var(--green);background:transparent;color:var(--green);cursor:pointer;font-family:var(--font-sans);font-size:.78rem">⭕ 맞았어요</button>
     <button onclick="quizSelfMark(false)" style="margin:5px 3px 0;padding:5px 14px;border-radius:10px;border:1.5px solid var(--red);background:transparent;color:var(--red);cursor:pointer;font-family:var(--font-sans);font-size:.78rem">❌ 틀렸어요</button>`;
 }
-
 function quizSelfMark(ok){
   const w=qWords[qIndex];
-  if(ok) qCorrect++; else { qSessionWrong.push(w); wrongWords.add(wordKey(w)); }
-  document.querySelector('.quiz-score').textContent=`맞은 개수: ${qCorrect} / ${qIndex+1} | 오답: ${qSessionWrong.length}`;
+  if(ok) qCorrect++; else { qSessionWrong.push(w); wrongWords.add(wordKey(w)); saveWrong(); }
+  document.querySelector('#quiz-mode .quiz-score').textContent=`맞은 개수: ${qCorrect} / ${qIndex+1} | 오답: ${qSessionWrong.length}`;
   advanceQuiz();
 }
 
-function advanceQuiz(){ qAnswered=false; qIndex++; if(qIndex>=qWords.length){ qDone=true; } renderQuiz(); }
+function advanceQuiz(){
+  qAnswered=false; qIndex++;
+  if(qIndex>=qWords.length){ qDone=true; addHistory('quiz-'+qType, qCorrect, qWords.length, currentCategory); }
+  renderQuiz();
+}
 
 function toggleHint(){
   const ht=document.getElementById('hint-text'), tg=document.getElementById('hint-toggle');
@@ -706,9 +746,8 @@ function renderQuizResult(el){
   const emoji=pct>=90?'🎉':pct>=70?'👍':pct>=50?'💪':'📖';
   const msg=pct>=90?'완벽해요!':pct>=70?'잘했어요!':pct>=50?'조금만 더 연습해요':'다시 도전해봐요';
   const wrongList=qSessionWrong.length?
-    `<div class="result-wrong-list"><div style="font-size:.78rem;font-weight:700;color:var(--red);margin-bottom:6px">❌ 틀린 단어 (${qSessionWrong.length}개)</div>`+
-    qSessionWrong.map(w=>`<div class="result-wrong-item"><div class="rwi-h">${w.h}</div><div class="rwi-info">${w.r} · ${w.m}</div></div>`).join('')+
-    `</div>`:'';
+    `<div class="result-wrong-list"><div style="font-size:.76rem;font-weight:700;color:var(--red);margin-bottom:6px">❌ 틀린 단어 (${qSessionWrong.length}개)</div>`+
+    qSessionWrong.map(w=>`<div class="result-wrong-item"><div class="rwi-h">${w.h}</div><div class="rwi-info">${w.r} · ${w.m}</div></div>`).join('')+`</div>`:'';
   el.innerHTML=`<div class="result-screen">
     <h2>퀴즈 완료! ${emoji}</h2>
     <div class="result-big">${qCorrect}<span style="font-size:1.4rem;font-weight:400;color:var(--faded)"> / ${qWords.length}</span></div>
@@ -718,7 +757,7 @@ function renderQuizResult(el){
     <div>
       <button class="result-btn" onclick="restartQuiz()">다시 풀기</button>
       <button class="result-btn outline" onclick="restartShuffle()">🔀 섞어서</button>
-      ${qSessionWrong.length?`<button class="result-btn wrong-btn" onclick="retryWrong()">❌ 오답만 다시</button>`:''}
+      ${qSessionWrong.length?`<button class="result-btn wrong-btn" onclick="retryWrong()">❌ 오답만</button>`:''}
     </div>
   </div>`;
 }
@@ -727,100 +766,74 @@ function restartQuiz(){ qWords=[...currentWords]; qIndex=0; qCorrect=0; qAnswere
 function restartShuffle(){ qWords=[...currentWords].sort(()=>Math.random()-.5); qIndex=0; qCorrect=0; qAnswered=false; qDone=false; qSessionWrong=[]; renderQuiz(); }
 function retryWrong(){ qWords=[...qSessionWrong].sort(()=>Math.random()-.5); qIndex=0; qCorrect=0; qAnswered=false; qDone=false; qSessionWrong=[]; renderQuiz(); }
 
-/* ═══════ EXAM MODE ═══════ */
+/* ═══════════════════════════════════════
+   EXAM
+═══════════════════════════════════════ */
 function renderExamSetup(){
   clearInterval(examTimer);
   const el=document.getElementById('exam-body');
   const n=Math.min(currentWords.length,20);
-  el.innerHTML=`
-    <div class="exam-setup">
-      <h3>📝 시험 모드</h3>
-      <div class="exam-opt-row">
-        <span>출제 방식</span>
-        <select id="exam-type-sel">
-          <option value="mc">4지선다</option>
-          <option value="read">음 입력</option>
-          <option value="meaning">뜻 입력</option>
-          <option value="hanja">한자 입력</option>
-        </select>
-      </div>
-      <div class="exam-opt-row">
-        <span>문제 수</span>
-        <input type="number" id="exam-count" value="${n}" min="1" max="${currentWords.length}" style="width:70px">
-      </div>
-      <div class="exam-opt-row">
-        <span>제한 시간</span>
-        <select id="exam-time-sel">
-          <option value="0">없음</option>
-          <option value="60">1분</option>
-          <option value="120">2분</option>
-          <option value="180">3분</option>
-          <option value="300">5분</option>
-          <option value="600">10분</option>
-        </select>
-      </div>
-      ${currentWords.length<4?`<p style="font-size:.75rem;color:var(--red);margin-top:8px">⚠️ 4지선다는 단어 4개 이상 필요합니다.</p>`:''}
-      <button class="exam-start-btn" onclick="startExam()">시험 시작 🚀</button>
-    </div>`;
+  el.innerHTML=`<div class="exam-setup">
+    <h3>📝 시험 모드</h3>
+    <div class="exam-opt-row"><span>출제 방식</span>
+      <select id="exam-type-sel"><option value="mc">4지선다</option><option value="read">음 입력</option><option value="meaning">뜻 입력</option><option value="hanja">한자 입력</option></select></div>
+    <div class="exam-opt-row"><span>문제 수</span>
+      <input type="number" id="exam-count" value="${n}" min="1" max="${currentWords.length}" style="width:70px"></div>
+    <div class="exam-opt-row"><span>제한 시간</span>
+      <select id="exam-time-sel"><option value="0">없음</option><option value="60">1분</option><option value="120">2분</option><option value="180">3분</option><option value="300">5분</option><option value="600">10분</option></select></div>
+    <button class="exam-start-btn" onclick="startExam()">시험 시작 🚀</button>
+  </div>`;
 }
 
 function startExam(){
   examType=document.getElementById('exam-type-sel').value;
   const cnt=Math.min(parseInt(document.getElementById('exam-count').value)||10,currentWords.length);
   examTimeLimit=parseInt(document.getElementById('exam-time-sel').value)||0;
+  if(examType==='mc'&&currentWords.length<4){ alert('4지선다는 단어가 4개 이상 필요합니다.'); return; }
   examWords=[...currentWords].sort(()=>Math.random()-.5).slice(0,cnt);
   examIndex=0; examCorrect=0; examAnswered=false; examDone=false; examSessionWrong=[];
-  if(examType==='mc'&&currentWords.length<4){ alert('4지선다는 단어가 4개 이상 필요합니다.'); return; }
   examTimeLeft=examTimeLimit;
   clearInterval(examTimer);
   if(examTimeLimit>0){
     examTimer=setInterval(()=>{
       examTimeLeft--;
       const tel=document.getElementById('exam-timer');
-      if(tel){
-        tel.textContent=fmtTime(examTimeLeft);
-        if(examTimeLeft<=30) tel.classList.add('warning');
-      }
-      if(examTimeLeft<=0){ clearInterval(examTimer); examDone=true; renderExamQ(); }
+      if(tel){ tel.textContent=fmtTime(examTimeLeft); if(examTimeLeft<=30) tel.classList.add('warning'); }
+      if(examTimeLeft<=0){ clearInterval(examTimer); examDone=true; addHistory('exam-'+examType, examCorrect, examWords.length, currentCategory); renderExamQ(); }
     },1000);
   }
   renderExamQ();
 }
-
-function fmtTime(s){ return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`; }
 
 function renderExamQ(){
   const el=document.getElementById('exam-body');
   if(examDone){ clearInterval(examTimer); renderExamResult(el); return; }
   const w=examWords[examIndex];
   const pct=Math.round((examIndex/examWords.length)*100);
-
   let label='',mainHTML='',inputHTML='';
   if(examType==='mc'){
     label='알맞은 뜻을 고르세요';
     mainHTML=`<div class="quiz-prompt-hanja">${w.h}</div><div style="font-size:.76rem;color:var(--faded);margin-top:2px">음: ${w.r}</div>`;
-    inputHTML=mcOptionsHTMLExam(w);
+    inputHTML=mcOptionsHTML(w,'examMcSelect','examMcCorrect');
   } else if(examType==='read'){
     label='이 한자의 음을 입력하세요';
     mainHTML=`<div class="quiz-prompt-hanja">${w.h}</div>`;
-    inputHTML=`<div class="quiz-input-row"><input class="quiz-input" id="exam-input" type="text" placeholder="음 입력" autocomplete="off" autocorrect="off" spellcheck="false" onkeydown="if(event.key==='Enter')examCheck()"><button class="quiz-submit" onclick="examCheck()">확인</button></div>`;
+    inputHTML=textInputHTML('음 입력','examCheck()');
   } else if(examType==='meaning'){
     label='이 한자의 뜻을 입력하세요';
     mainHTML=`<div class="quiz-prompt-hanja">${w.h}</div>`;
-    inputHTML=`<div class="quiz-input-row"><input class="quiz-input" id="exam-input" type="text" placeholder="뜻 입력" autocomplete="off" autocorrect="off" spellcheck="false" onkeydown="if(event.key==='Enter')examCheck()"><button class="quiz-submit" onclick="examCheck()">확인</button></div>`;
+    inputHTML=textInputHTML('뜻 입력','examCheck()');
   } else {
     label='음과 뜻을 보고 한자를 입력하세요';
     mainHTML=`<div class="quiz-prompt-text">음: <b style="color:var(--red)">${w.r}</b></div><div class="quiz-prompt-text">뜻: <b>${w.m}</b></div>`;
-    inputHTML=`<div class="quiz-input-row"><input class="quiz-input" id="exam-input" type="text" placeholder="한자 입력" autocomplete="off" autocorrect="off" spellcheck="false" onkeydown="if(event.key==='Enter')examCheck()"><button class="quiz-submit" onclick="examCheck()">확인</button></div>`;
+    inputHTML=textInputHTML('한자 입력','examCheck()');
   }
-
   el.innerHTML=`
     ${examTimeLimit>0?`<div class="exam-timer${examTimeLeft<=30?' warning':''}" id="exam-timer">${fmtTime(examTimeLeft)}</div>`:''}
     <div class="progress-bar" style="margin-bottom:10px"><div class="progress-fill" style="width:${pct}%"></div></div>
     <div class="quiz-card">
       <div class="quiz-prompt-label">${label}</div>
-      ${mainHTML}
-      ${inputHTML}
+      ${mainHTML}${inputHTML}
       <div class="quiz-feedback" id="efb"></div>
     </div>
     <div class="quiz-nav-row">
@@ -831,86 +844,66 @@ function renderExamQ(){
   setTimeout(()=>{ const i=document.getElementById('exam-input'); if(i) i.focus(); },50);
 }
 
-function mcOptionsHTMLExam(w){
-  const fullPool=allWords();
-  const correctMeaning=w.m.split('/')[0].trim();
-  const others=fullPool.filter(x=>{
-    if(wordKey(x)===wordKey(w)) return false;
-    return x.m.split('/')[0].trim()!==correctMeaning;
-  });
-  const seenM=new Set([correctMeaning]);
-  const distractors=[];
-  [...others].sort(()=>Math.random()-.5).forEach(x=>{
-    if(distractors.length>=3) return;
-    const xm=x.m.split('/')[0].trim();
-    if(!seenM.has(xm)){seenM.add(xm);distractors.push(x);}
-  });
-  const opts=[w,...distractors].sort(()=>Math.random()-.5);
-  return `<div class="mc-options" id="mc-options">`+
-    opts.map(o=>`<button class="mc-btn" onclick="examMcSelect(this,'${wordKey(o)}','${wordKey(w)}')">`+o.m.split('/')[0].trim()+`</button>`).join('')+
-  `</div>`;
-}
-
 function examMcSelect(btn,selectedKey,correctKey){
   if(examAnswered) return;
   examAnswered=true;
   const w=examWords[examIndex];
   const correct=selectedKey===correctKey;
   if(correct) examCorrect++;
-  else { examSessionWrong.push(w); wrongWords.add(wordKey(w)); }
-  document.querySelectorAll('.mc-btn').forEach(b=>{
+  else { examSessionWrong.push(w); wrongWords.add(wordKey(w)); saveWrong(); }
+  document.querySelectorAll('#exam-body .mc-btn').forEach(b=>{
     b.disabled=true;
-    const bKey=b.getAttribute('onclick').match(/'([^']+)','[^']+'/)[1];
+    const bKey=b.getAttribute('onclick').match(/'([^']+)','[^']+'\)/)[1];
     if(bKey===correctKey) b.classList.add('correct-ans');
     else if(b===btn&&!correct) b.classList.add('wrong-ans');
   });
-  const fb=document.getElementById('efb');
-  fb.style.display='block';
+  const fb=document.getElementById('efb'); fb.style.display='block';
   fb.className='quiz-feedback '+(correct?'correct':'wrong');
   fb.textContent=correct?'⭕ 정답!':'❌ 오답 — 정답: '+w.m;
-  document.querySelector('.quiz-score').textContent=`맞은 개수: ${examCorrect} / ${examIndex+1} | 오답: ${examSessionWrong.length}`;
+  document.querySelector('#exam-mode .quiz-score').textContent=`맞은 개수: ${examCorrect} / ${examIndex+1} | 오답: ${examSessionWrong.length}`;
   setTimeout(advanceExam,1300);
 }
+function examMcCorrect(){}
 
 function examCheck(){
   if(examAnswered) return;
   const inp=document.getElementById('exam-input');
   if(!inp||!inp.value.trim()) return;
   inp.disabled=true;
-  const val=inp.value.trim();
-  const w=examWords[examIndex];
+  const val=inp.value.trim(), w=examWords[examIndex];
   let correct=false;
   if(examType==='read') correct=val===w.r;
   else if(examType==='meaning'){ const ans=w.m.split('/').map(s=>s.trim()); correct=ans.some(a=>val===a||val.replace(/\s/g,'')===a.replace(/\s/g,'')); }
   else correct=val===w.h;
   if(correct) examCorrect++;
-  else { examSessionWrong.push(w); wrongWords.add(wordKey(w)); }
+  else { examSessionWrong.push(w); wrongWords.add(wordKey(w)); saveWrong(); }
   examAnswered=true;
-  const fb=document.getElementById('efb');
-  fb.style.display='block';
+  const fb=document.getElementById('efb'); fb.style.display='block';
   fb.className='quiz-feedback '+(correct?'correct':'wrong');
   fb.innerHTML=correct?`⭕ 정답! <span style="font-family:var(--font-serif)">${w.h}</span> = <b>${w.r}</b> (${w.m})`:`❌ 오답 — 정답: <span style="font-family:var(--font-serif)">${w.h}</span> = <b>${w.r}</b> (${w.m})`;
-  document.querySelector('.quiz-score').textContent=`맞은 개수: ${examCorrect} / ${examIndex+1} | 오답: ${examSessionWrong.length}`;
+  document.querySelector('#exam-mode .quiz-score').textContent=`맞은 개수: ${examCorrect} / ${examIndex+1} | 오답: ${examSessionWrong.length}`;
   setTimeout(advanceExam,1400);
 }
-
-function advanceExam(){ examAnswered=false; examIndex++; if(examIndex>=examWords.length) examDone=true; renderExamQ(); }
+function advanceExam(){
+  examAnswered=false; examIndex++;
+  if(examIndex>=examWords.length){ examDone=true; clearInterval(examTimer); addHistory('exam-'+examType, examCorrect, examWords.length, currentCategory); }
+  renderExamQ();
+}
 
 function renderExamResult(el){
   const pct=examWords.length?Math.round(examCorrect/examWords.length*100):0;
   const grade=pct>=90?'A':pct>=80?'B':pct>=70?'C':pct>=60?'D':'F';
   const emoji=pct>=90?'🎉':pct>=70?'👍':pct>=50?'💪':'📖';
   const wrongList=examSessionWrong.length?
-    `<div class="result-wrong-list"><div style="font-size:.78rem;font-weight:700;color:var(--red);margin-bottom:6px">❌ 틀린 단어 (${examSessionWrong.length}개)</div>`+
-    examSessionWrong.map(w=>`<div class="result-wrong-item"><div class="rwi-h">${w.h}</div><div class="rwi-info">${w.r} · ${w.m}</div></div>`).join('')+
-    `</div>`:'';
+    `<div class="result-wrong-list"><div style="font-size:.76rem;font-weight:700;color:var(--red);margin-bottom:6px">❌ 틀린 단어 (${examSessionWrong.length}개)</div>`+
+    examSessionWrong.map(w=>`<div class="result-wrong-item"><div class="rwi-h">${w.h}</div><div class="rwi-info">${w.r} · ${w.m}</div></div>`).join('')+`</div>`:'';
   el.innerHTML=`<div class="result-screen">
     <h2>시험 결과 ${emoji}</h2>
     <div class="result-big">${examCorrect}<span style="font-size:1.4rem;font-weight:400;color:var(--faded)"> / ${examWords.length}</span></div>
-    <div style="font-size:2rem;font-weight:900;color:var(--gold);margin-top:4px">${pct}점 &nbsp;<span style="font-size:1.4rem">${grade}</span></div>
+    <div style="font-size:1.8rem;font-weight:700;color:var(--gold);margin-top:4px">${pct}점 &nbsp;<span style="font-size:1.2rem">${grade}</span></div>
     ${wrongList}
     <div>
-      <button class="result-btn" onclick="renderExamSetup();document.getElementById('exam-body').innerHTML='';renderExamSetup()">다시 설정</button>
+      <button class="result-btn" onclick="renderExamSetup()">다시 설정</button>
       ${examSessionWrong.length?`<button class="result-btn wrong-btn" onclick="retryExamWrong()">❌ 오답만 다시</button>`:''}
     </div>
   </div>`;
@@ -920,8 +913,7 @@ function retryExamWrong(){
   const prev=[...examSessionWrong];
   examWords=prev.sort(()=>Math.random()-.5);
   examIndex=0; examCorrect=0; examAnswered=false; examDone=false; examSessionWrong=[];
-  examTimeLeft=examTimeLimit;
-  clearInterval(examTimer);
+  examTimeLeft=examTimeLimit; clearInterval(examTimer);
   if(examTimeLimit>0){
     examTimer=setInterval(()=>{
       examTimeLeft--;
@@ -933,12 +925,13 @@ function retryExamWrong(){
   renderExamQ();
 }
 
-/* ═══════ CANVAS ═══════ */
+/* ═══════════════════════════════════════
+   CANVAS
+═══════════════════════════════════════ */
 function initCanvas(){
-  drawCanvas=document.getElementById('draw-canvas');
-  if(!drawCanvas) return;
+  drawCanvas=document.getElementById('draw-canvas'); if(!drawCanvas) return;
   drawCtx=drawCanvas.getContext('2d');
-  drawCtx.strokeStyle='#1a0a00'; drawCtx.lineWidth=4.5; drawCtx.lineCap='round'; drawCtx.lineJoin='round';
+  drawCtx.strokeStyle=isDark?'#e8dcc8':'#1a0a00'; drawCtx.lineWidth=4.5; drawCtx.lineCap='round'; drawCtx.lineJoin='round';
   const on=(evts,fn,opts)=>evts.forEach(e=>drawCanvas.addEventListener(e,fn,opts));
   on(['touchstart'],e=>{e.preventDefault();const t=e.touches[0];startDraw(t.clientX,t.clientY);},{passive:false});
   on(['touchmove'], e=>{e.preventDefault();const t=e.touches[0];doDraw(t.clientX,t.clientY);},{passive:false});
@@ -948,21 +941,20 @@ function initCanvas(){
   on(['mouseup','mouseleave'],()=>stopDraw());
 }
 function getXY(cx,cy){ const r=drawCanvas.getBoundingClientRect(); return{x:(cx-r.left)*(drawCanvas.width/r.width),y:(cy-r.top)*(drawCanvas.height/r.height)}; }
-function startDraw(cx,cy){ isDrawing=true; const{x,y}=getXY(cx,cy); lastX=x;lastY=y; drawCtx.beginPath(); drawCtx.arc(x,y,2.5,0,Math.PI*2); drawCtx.fillStyle='#1a0a00'; drawCtx.fill(); }
+function startDraw(cx,cy){ isDrawing=true; const{x,y}=getXY(cx,cy); lastX=x;lastY=y; drawCtx.beginPath(); drawCtx.arc(x,y,2.5,0,Math.PI*2); drawCtx.fillStyle=isDark?'#e8dcc8':'#1a0a00'; drawCtx.fill(); }
 function doDraw(cx,cy){ if(!isDrawing) return; const{x,y}=getXY(cx,cy); drawCtx.beginPath(); drawCtx.moveTo(lastX,lastY); drawCtx.lineTo(x,y); drawCtx.stroke(); lastX=x;lastY=y; }
 function stopDraw(){ isDrawing=false; }
 function clearCanvas(){ if(!drawCtx) return; drawCtx.clearRect(0,0,drawCanvas.width,drawCanvas.height); const g=document.getElementById('canvas-guide'); if(g) g.style.color='transparent'; }
 
-/* ═══════ LIST + FAVORITES ═══════ */
+/* ═══════════════════════════════════════
+   LIST + FAVORITES
+═══════════════════════════════════════ */
 function renderList(){
-  const el=document.getElementById('list-content');
-  el.innerHTML='';
-
+  const el=document.getElementById('list-content'); el.innerHTML='';
   if(!currentWords.length){
-    el.innerHTML=`<div class="empty-state"><div class="big">${currentCategory==='__fav__'?'⭐':'❌'}</div>${currentCategory==='__fav__'?'즐겨찾기가 비어있어요.<br>목록에서 ⭐를 눌러 추가해보세요.':'오답이 없어요.<br>퀴즈를 풀면 자동으로 추가됩니다.'}</div>`;
+    el.innerHTML=`<div class="empty-state"><div class="big">${currentCategory==='__fav__'?'⭐':'❌'}</div>${currentCategory==='__fav__'?'즐겨찾기가 비어있어요.<br>목록에서 ☆를 눌러 추가해보세요.':'오답이 없어요.<br>퀴즈를 풀면 자동으로 추가됩니다.'}</div>`;
     return;
   }
-
   if(currentCategory==='__all__'){
     Object.entries(ALL_WORDS).forEach(([cat,ws])=>{
       const g=document.createElement('div'); g.className='list-group';
@@ -973,7 +965,7 @@ function renderList(){
     });
   } else {
     const g=document.createElement('div'); g.className='list-group';
-    const catLabel= currentCategory==='__fav__'?'⭐ 즐겨찾기': currentCategory==='__wrong__'?'❌ 오답노트':currentCategory;
+    const catLabel=currentCategory==='__fav__'?'⭐ 즐겨찾기':currentCategory==='__wrong__'?'❌ 오답노트':currentCategory;
     g.innerHTML=`<div class="list-group-title">${catLabel}</div>`;
     currentWords.forEach((w,i)=>{ const item=mkListItem(w); item.querySelector('.list-info').onclick=()=>{ fcIndex=i; setMode('flash'); fcRender(); }; g.appendChild(item); });
     el.appendChild(g);
@@ -985,35 +977,74 @@ function mkListItem(w){
   const key=wordKey(w);
   const isStarred=favorites.has(key);
   const isWrong=wrongWords.has(key);
+  const isKnown=knownWords.has(key);
   d.innerHTML=`
     <div class="list-hanja">${w.h}</div>
-    <div class="list-info" style="cursor:pointer">
-      <div class="list-reading">${w.r} ${isWrong?'<span class="wrong-badge">오답</span>':''}</div>
+    <div class="list-info">
+      <div class="list-reading">${w.r}${isWrong?'<span class="wrong-badge">오답</span>':''}${isKnown?' <span style="font-size:.6rem;color:var(--green)">✓</span>':''}</div>
       <div class="list-meaning">${w.m}</div>
     </div>
     ${w.pair?`<div class="list-pair-tag">${w.pair}</div>`:''}
-    <button class="star-btn ${isStarred?'starred':''}" title="${isStarred?'즐겨찾기 해제':'즐겨찾기 추가'}" onclick="toggleFav(this,'${key.replace(/'/g,"\\'")}','${w.h}','${w.r}','${w.m.replace(/'/g,"\\'")}','${(w.cat||'').replace(/'/g,"\\'")}','${(w.pair||'').replace(/'/g,"\\'")}')">
-      ${isStarred?'★':'☆'}
-    </button>`;
+    <button class="star-btn" title="${isStarred?'즐겨찾기 해제':'즐겨찾기 추가'}" onclick="toggleFav(this,'${key}')">${isStarred?'★':'☆'}</button>`;
   return d;
 }
 
-function toggleFav(btn, key, h, r, m, cat, pair){
-  if(favorites.has(key)){
-    favorites.delete(key);
-    btn.textContent='☆'; btn.classList.remove('starred'); btn.title='즐겨찾기 추가';
-  } else {
-    favorites.add(key);
-    btn.textContent='★'; btn.classList.add('starred'); btn.title='즐겨찾기 해제';
-    // animate
-    btn.style.transform='scale(1.5)';
-    setTimeout(()=>btn.style.transform='',200);
-  }
-  // if currently viewing favorites tab, reload
+function toggleFav(btn, key){
+  if(favorites.has(key)){ favorites.delete(key); btn.textContent='☆'; btn.title='즐겨찾기 추가'; }
+  else { favorites.add(key); btn.textContent='★'; btn.title='즐겨찾기 해제'; btn.style.transform='scale(1.5)'; setTimeout(()=>btn.style.transform='',200); }
+  saveFavorites();
   if(currentCategory==='__fav__'){ currentWords=getFavWords(); document.getElementById('count-badge').textContent=`총 ${currentWords.length}개`; renderList(); }
 }
 
-/* ═══════ KEYBOARD ═══════ */
+/* ═══════════════════════════════════════
+   STATS
+═══════════════════════════════════════ */
+const TYPE_LABEL={'quiz-read':'퀴즈·음','quiz-meaning':'퀴즈·뜻','quiz-mc':'퀴즈·4지선다','quiz-draw':'퀴즈·쓰기','quiz-hanja':'퀴즈·한자입력','exam-read':'시험·음','exam-meaning':'시험·뜻','exam-mc':'시험·4지선다','exam-hanja':'시험·한자입력'};
+
+function renderStats(){
+  const el=document.getElementById('stats-body');
+  const totalSessions=quizHistory.length;
+  const avgScore=totalSessions?Math.round(quizHistory.reduce((a,h)=>a+Math.round(h.score/h.total*100),0)/totalSessions):0;
+  const totalWords=allWords().length;
+
+  el.innerHTML=`
+    <div class="stats-grid">
+      <div class="stats-card"><div class="stats-num">${totalSessions}</div><div class="stats-label">총 학습 횟수</div></div>
+      <div class="stats-card"><div class="stats-num">${avgScore}<span style="font-size:1rem">점</span></div><div class="stats-label">평균 점수</div></div>
+      <div class="stats-card"><div class="stats-num" style="color:var(--green)">${knownWords.size}</div><div class="stats-label">외운 단어</div></div>
+      <div class="stats-card"><div class="stats-num" style="color:var(--red)">${wrongWords.size}</div><div class="stats-label">오답 단어</div></div>
+      <div class="stats-card"><div class="stats-num" style="color:#e67e22">${favorites.size}</div><div class="stats-label">즐겨찾기</div></div>
+      <div class="stats-card"><div class="stats-num">${totalWords}</div><div class="stats-label">전체 단어</div></div>
+    </div>
+    <div class="stats-history">
+      <h4>📋 최근 학습 기록</h4>
+      ${quizHistory.length===0?'<div style="color:var(--faded);font-size:.8rem;text-align:center;padding:16px">아직 기록이 없어요.<br>퀴즈나 시험을 풀어보세요!</div>':
+        quizHistory.slice(0,20).map(h=>{
+          const pct=Math.round(h.score/h.total*100);
+          const grade=pct>=90?'A':pct>=80?'B':pct>=70?'C':pct>=60?'D':'F';
+          const color=pct>=70?'var(--green)':pct>=50?'var(--gold)':'var(--red)';
+          return `<div class="history-item">
+            <div class="history-score" style="color:${color}">${pct}점</div>
+            <div class="history-meta">${TYPE_LABEL[h.type]||h.type} &nbsp;·&nbsp; ${h.score}/${h.total}<br><span style="font-size:.68rem">${fmtDate(h.date)} &nbsp;${h.cat==='__all__'?'전체':h.cat==='__fav__'?'즐겨찾기':h.cat==='__wrong__'?'오답노트':h.cat}</span></div>
+            <div class="history-grade" style="color:${color}">${grade}</div>
+          </div>`;
+        }).join('')
+      }
+    </div>
+    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+      <button class="clear-btn" onclick="clearWrong()">오답노트 초기화</button>
+      <button class="clear-btn" onclick="clearKnown()">외운단어 초기화</button>
+      <button class="clear-btn" onclick="clearHistory()">기록 초기화</button>
+    </div>`;
+}
+
+function clearWrong(){ if(!confirm('오답노트를 초기화할까요?')) return; wrongWords.clear(); saveWrong(); renderStats(); renderList(); }
+function clearKnown(){ if(!confirm('외운 단어 기록을 초기화할까요?')) return; knownWords.clear(); saveKnown(); fcKnownSet.clear(); renderStats(); renderList(); fcRender(); }
+function clearHistory(){ if(!confirm('학습 기록을 모두 삭제할까요?')) return; quizHistory=[]; saveHistory(); renderStats(); }
+
+/* ═══════════════════════════════════════
+   KEYBOARD
+═══════════════════════════════════════ */
 document.addEventListener('keydown',e=>{
   if(viewMode==='flash'){
     if(e.key==='ArrowRight') fcNext();
