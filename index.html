@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 
 <html lang="ko">
 <head>
@@ -403,32 +403,24 @@ const STORE = {
 };
 
 /* ═══════════════════════════════════════
-   STATE  (loaded from storage on boot)
+   STATE
 ═══════════════════════════════════════ */
 let currentCategory = "기초 한자";
 let currentWords = [];
 let viewMode = 'flash';
 
-// persistent
 let favorites  = new Set(STORE.load('favorites', []));
 let wrongWords = new Set(STORE.load('wrongWords', []));
-let knownWords = new Set(STORE.load('knownWords', []));  // globally known (✓ 외웠어요)
-let quizHistory = STORE.load('quizHistory', []);         // [{date,type,score,total,cat}]
+let knownWords = new Set(STORE.load('knownWords', []));
+let quizHistory = STORE.load('quizHistory', []);
 let isDark = STORE.load('darkMode', false);
 
-// flashcard
 let fcIndex=0, fcFlipped=false, fcKnownSet=new Set();
-
-// quiz
 let qType='read', qWords=[], qIndex=0, qCorrect=0, qAnswered=false, qDone=false;
 let qSessionWrong=[];
-
-// exam
 let examWords=[], examIndex=0, examCorrect=0, examAnswered=false, examDone=false;
 let examType='mc', examTimeLimit=0, examTimer=null, examTimeLeft=0;
 let examSessionWrong=[];
-
-// drawing
 let drawCanvas,drawCtx,isDrawing=false,lastX=0,lastY=0;
 
 /* ═══════════════════════════════════════
@@ -504,7 +496,6 @@ function loadWords(){
 
   document.getElementById('count-badge').textContent=`총 ${currentWords.length}개`;
 
-  // restore known state for flashcard
   fcKnownSet = new Set([...knownWords].filter(k=>currentWords.some(w=>wordKey(w)===k)));
 
   fcRender(); renderList();
@@ -665,7 +656,6 @@ function canvasHTML(hanja){
   </div>`;
 }
 
-// called from mc button
 function mcSelect(btn, selectedKey, correctKey){
   if(qAnswered) return;
   qAnswered=true;
@@ -685,7 +675,7 @@ function mcSelect(btn, selectedKey, correctKey){
   document.querySelector('#quiz-mode .quiz-score').textContent=`맞은 개수: ${qCorrect} / ${qIndex+1} | 오답: ${qSessionWrong.length}`;
   setTimeout(advanceQuiz,1300);
 }
-function quizMcCorrect(){} // placeholder
+function quizMcCorrect(){}
 
 function quizCheck(){
   if(qAnswered) return;
