@@ -513,7 +513,7 @@ function renderQuiz(){
   } else if(qType==='mc'){
     label='알맞은 뜻을 고르세요';
     mainHTML=`<div class="quiz-prompt-hanja">${w.h}</div><div style="font-size:.78rem;color:var(--faded);margin-top:2px">음: ${w.r}</div>`;
-    inputHTML=mcOptionsHTML(w, qWords, 'meaning');
+    inputHTML=mcOptionsHTML(w);
   } else if(qType==='draw'){
     label='음과 뜻을 보고 한자를 직접 써보세요';
     mainHTML=`<div class="quiz-prompt-text">음: <b style="color:var(--red)">${w.r}</b></div><div class="quiz-prompt-text">뜻: <b>${w.m}</b></div>`;
@@ -553,13 +553,23 @@ function textInputHTML(ph){
   </div>`;
 }
 
-function mcOptionsHTML(w, pool, field){
-  // pick 3 wrong options from pool
-  const others=pool.filter(x=>wordKey(x)!==wordKey(w));
-  const shuffled=[...others].sort(()=>Math.random()-.5).slice(0,3);
-  const opts=[w,...shuffled].sort(()=>Math.random()-.5);
+function mcOptionsHTML(w){
+  const fullPool=allWords();
+  const correctMeaning=w.m.split('/')[0].trim();
+  const others=fullPool.filter(x=>{
+    if(wordKey(x)===wordKey(w)) return false;
+    return x.m.split('/')[0].trim()!==correctMeaning;
+  });
+  const seenM=new Set([correctMeaning]);
+  const distractors=[];
+  [...others].sort(()=>Math.random()-.5).forEach(x=>{
+    if(distractors.length>=3) return;
+    const xm=x.m.split('/')[0].trim();
+    if(!seenM.has(xm)){seenM.add(xm);distractors.push(x);}
+  });
+  const opts=[w,...distractors].sort(()=>Math.random()-.5);
   return `<div class="mc-options" id="mc-options">`+
-    opts.map((o,i)=>`<button class="mc-btn" onclick="mcSelect(this,'${wordKey(o)}','${wordKey(w)}')">${o[field]}</button>`).join('')+
+    opts.map(o=>`<button class="mc-btn" onclick="mcSelect(this,'${wordKey(o)}','${wordKey(w)}')">`+o.m.split('/')[0].trim()+`</button>`).join('')+
   `</div>`;
 }
 
@@ -795,11 +805,22 @@ function renderExamQ(){
 }
 
 function mcOptionsHTMLExam(w){
-  const others=currentWords.filter(x=>wordKey(x)!==wordKey(w));
-  const shuffled=[...others].sort(()=>Math.random()-.5).slice(0,3);
-  const opts=[w,...shuffled].sort(()=>Math.random()-.5);
+  const fullPool=allWords();
+  const correctMeaning=w.m.split('/')[0].trim();
+  const others=fullPool.filter(x=>{
+    if(wordKey(x)===wordKey(w)) return false;
+    return x.m.split('/')[0].trim()!==correctMeaning;
+  });
+  const seenM=new Set([correctMeaning]);
+  const distractors=[];
+  [...others].sort(()=>Math.random()-.5).forEach(x=>{
+    if(distractors.length>=3) return;
+    const xm=x.m.split('/')[0].trim();
+    if(!seenM.has(xm)){seenM.add(xm);distractors.push(x);}
+  });
+  const opts=[w,...distractors].sort(()=>Math.random()-.5);
   return `<div class="mc-options" id="mc-options">`+
-    opts.map(o=>`<button class="mc-btn" onclick="examMcSelect(this,'${wordKey(o)}','${wordKey(w)}')">${o.m}</button>`).join('')+
+    opts.map(o=>`<button class="mc-btn" onclick="examMcSelect(this,'${wordKey(o)}','${wordKey(w)}')">`+o.m.split('/')[0].trim()+`</button>`).join('')+
   `</div>`;
 }
 
